@@ -88,7 +88,7 @@
   <!-- Hero Section -->
   <div class="hero">
     <div class="hero-content">
-      <h1>💍 수빈 & 예림 💍</h1>
+      <h1> 수빈 💛 예림 </h1>
       <p>2025년 09월 13일 토요일 오후 4시<br>경기도 수원시 더아리엘</p>
     </div>
     <div class="scroll-down">⌄</div>
