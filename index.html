@@ -12,8 +12,13 @@
     body { display:flex; flex-direction:column; align-items:center; }
     a { text-decoration:none; color:inherit; }
 
-    /* Hero Section */
-    .hero { width:100%; height:80vh; position:relative; background:url('hero.jpg') center/cover no-repeat; display:flex; align-items:center; justify-content:center; text-align:center; }
+    /* Hero Section: Fullscreen */
+    .hero {
+      width:100%; height:100vh;
+      position:relative;
+      background:url('hero.jpg') center/cover no-repeat;
+      display:flex; align-items:center; justify-content:center; text-align:center;
+    }
     .hero::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.4); }
     .hero-content { position:relative; z-index:1; color:#fff; max-width:90%; }
     .hero h1 { font-family:'Playfair Display',serif; font-size:3em; margin-bottom:0.5em; }
@@ -22,11 +27,16 @@
     @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
 
     /* Main Content */
-    .content { width:100%; max-width:640px; margin:0 auto; padding:0 20px 40px; transform:translateY(-60px); }
+    .content { width:100%; max-width:640px; margin:0 auto; padding:0 20px 40px; }
+
+    /* Gallery with fade-in */
     .gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:30px; }
-    .gallery img { width:100%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); opacity:0; transform:translateY(20px); transition:opacity .6s ease-out, transform .6s ease-out; }
+    .gallery img {
+      width:100%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      opacity:0; transform:translateY(20px);
+      transition:opacity .6s ease-out, transform .6s ease-out;
+    }
     .gallery img.visible { opacity:1; transform:translateY(0); }
-    @media(min-width:600px){ .gallery { grid-template-columns:repeat(3,1fr); } }
 
     /* Sections */
     .section { margin-bottom:40px; text-align:center; }
@@ -63,7 +73,7 @@
   <!-- Hero Section -->
   <div class="hero">
     <div class="hero-content">
-      <h1> 수빈 💛 예림 </h1>
+      <h1>수빈 💛 예림</h1>
       <p>2025년 09월 13일 토요일 오후 4시<br>경기도 수원시 더아리엘</p>
     </div>
     <div class="scroll-down">⌄</div>
@@ -71,6 +81,7 @@
 
   <!-- Main Content -->
   <div class="content">
+
     <!-- Gallery -->
     <div class="gallery">
       <img src="photo1.jpg" alt="사진 1">
@@ -92,7 +103,7 @@
       <p>격려해주시면 감사하겠습니다.</p>
     </div>
 
-
+    <!-- Parents & Names -->
     <div class="section parents">
       <p>김용안 · 이해성의 아들 <strong>수빈</strong></p>
       <p>이롱순 · 박승희의 딸 <strong>예림</strong></p>
