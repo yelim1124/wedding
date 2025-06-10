@@ -43,20 +43,15 @@
 
     /* Gallery with scroll fade-in */
     .gallery {
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:12px;
-      margin-bottom:30px;
+      display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; margin-bottom:30px;
     }
     .gallery img {
-      width:100%; border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      width:100%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);
       opacity:0; transform:translateY(20px);
       transition:opacity .6s ease-out, transform .6s ease-out;
       will-change:opacity, transform;
     }
     .gallery img.visible { opacity:1; transform:translateY(0); }
-    /* staggered delays */
     .gallery img:nth-child(1).visible { transition-delay:0.2s; }
     .gallery img:nth-child(2).visible { transition-delay:0.4s; }
     .gallery img:nth-child(3).visible { transition-delay:0.6s; }
@@ -75,7 +70,7 @@
 
     /* Map Embed */
     .map-embed { margin-top:30px; text-align:center; }
-    #naver-map { width:100%; height:350px; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
+    .map-embed iframe { width:100%; height:350px; border:0; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); }
 
     /* Calendar */
     .calendar-table { width:100%; max-width:400px; margin:20px auto; border-collapse:collapse; }
@@ -138,9 +133,9 @@
       <p>📍 경기도 수원시 더아리엘 5층</p>
     </div>
 
-    <!-- Contact & Gift -->
+    <!-- 마음 전하는 곳 -->
     <div class="section">
-      <h2>Contact & Gift</h2>
+      <h2>마음 전하는 곳</h2>
       <p>🤵 신랑: 수빈 010-7676-6059</p>
       <p>👰‍ 신부: 예림 010-8567-6059</p>
       <p>💳 계좌번호: 3333-32-2026635 (카카오뱅크)</p>
@@ -149,13 +144,13 @@
     <!-- Action Buttons -->
     <div class="section buttons">
       <a href="tel:01076766059" class="btn">전화하기</a>
-      <a href="https://map.naver.com" class="btn">오시는 길</a>
+      <a href="https://map.kakao.com/link/to/더아리엘" class="btn">오시는 길</a>
     </div>
 
-    <!-- Embedded Naver Map -->
+    <!-- Embedded KakaoNavi Map -->
     <div class="section map-embed">
       <h2>오시는 길</h2>
-      <div id="naver-map"></div>
+      <iframe src="https://map.kakao.com/link/map/더아리엘,37.2635,127.0286" allowfullscreen loading="lazy"></iframe>
     </div>
 
     <!-- Calendar -->
@@ -193,30 +188,18 @@
   </div>
 
   <!-- Scripts -->
-  <script src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=YOUR_CLIENT_ID"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // gallery fade-in
       const images = document.querySelectorAll('.gallery img');
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
-          }
+          if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
       images.forEach(img => observer.observe(img));
 
-      // guestbook handler
       const form = document.querySelector('.guestbook-form');
       form.addEventListener('submit', e => { e.preventDefault(); alert('메시지가 전송되었습니다. 감사합니다!'); form.reset(); });
-
-      // Naver map init
-      var map = new naver.maps.Map('naver-map', {
-        center: new naver.maps.LatLng(37.2635, 127.0286), zoom: 15
-      });
-      new naver.maps.Marker({ position: map.getCenter(), map: map, title: '더아리엘' });
     });
   </script>
 </body>
