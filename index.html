@@ -8,16 +8,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height:100%; font-family:'Noto Sans KR',sans-serif; background:#fafafa; color:#333; overflow-x:hidden; }
+    html, body {
+      height:100%;
+      font-family:'Noto Sans KR',sans-serif;
+      background:#fafafa;
+      color:#333;
+      overflow-x:hidden;
+    }
     a { text-decoration:none; color:inherit; }
 
     /* Hero Section: fullscreen */
     .hero {
-      width:100%; height:100vh;
+      width:100%;
+      height:100vh;
       background:url('hero.jpg') center center / cover no-repeat;
       background-attachment: scroll;
       position:relative;
-      display:flex; align-items:center; justify-content:center; text-align:center;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
     }
     .hero::after { content: ''; position:absolute; inset:0; background:rgba(0,0,0,0.4); }
     .hero-content { position:relative; z-index:1; color:#fff; max-width:90%; }
@@ -26,9 +36,21 @@
     .scroll-down { position:absolute; bottom:20px; font-size:1.5em; color:#fff; animation:bounce 2s infinite; }
     @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
 
-    /* Gallery: scroll-snap one image at a time */
-    .gallery { display:flex; flex-direction:column; scroll-snap-type:y mandatory; overflow-y:auto; height:100vh; }
-    .gallery img { scroll-snap-align:start; flex-shrink:0; width:100%; height:100vh; object-fit:cover; }
+    /* Horizontal Gallery Slider */
+    .gallery {
+      display:flex;
+      overflow-x:auto;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+      height:100vh;
+    }
+    .gallery img {
+      flex:0 0 100%;
+      scroll-snap-align:start;
+      width:100%;
+      height:100vh;
+      object-fit:cover;
+    }
 
     /* Centered content wrapper */
     .content, .footer { width:100%; max-width:640px; margin:0 auto; padding:20px; }
@@ -77,15 +99,13 @@
     <div class="scroll-down">⌄</div>
   </div>
 
-  <!-- Gallery: one image per viewport -->
+  <!-- Main Content: Horizontal Gallery -->
   <div class="gallery">
     <img src="photo1.jpg" alt="사진 1">
     <img src="photo2.jpg" alt="사진 2">
     <img src="photo3.jpg" alt="사진 3">
     <img src="photo4.jpg" alt="사진 4">
   </div>
-
-  <!-- Main Content -->
   <div class="content">
     <!-- Invitation -->
     <div class="section">
@@ -104,8 +124,7 @@
     <div class="section parents">
       <p>김용안 · 이해성의 아들 <strong>수빈</strong></p>
       <p>이롱순 · 박승희의 딸 <strong>예림</strong></p>
-      <!-- 추가 문구 -->
-      <p style="margin-top:16px; font-style:italic; color:#777;">자리가 협소하여 정중히 화환은 사양합니다.</p>
+      <p style="margin-top:16px; font-style:italic; color:#777;">자리가 협소하여 화환은 정중히 사양합니다.</p>
     </div>
 
     <!-- Details -->
@@ -132,7 +151,7 @@
     <!-- Map Embed -->
     <div class="section map-embed">
       <h2>오시는 길</h2>
-      <iframe src="https://www.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EB%8D%94%EC%95%84%EB%A6%AC%EC%97%98&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps?q=경기도%20수원시%20더아리엘&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
     </div>
 
     <!-- Calendar -->
