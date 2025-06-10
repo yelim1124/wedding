@@ -9,34 +9,58 @@
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
     html, body { height:100%; font-family:'Montserrat',sans-serif; background:#fafafa; color:#333; }
-    body { display:flex; flex-direction:column; align-items:center; }
     a { text-decoration:none; color:inherit; }
 
-    /* Hero Section: Fullscreen */
+    /* Hero Section: Fullscreen with fixed background */
     .hero {
       width:100%; height:100vh;
+      background: url('hero.jpg') center/cover no-repeat fixed;
       position:relative;
-      background:url('hero.jpg') center/cover no-repeat;
       display:flex; align-items:center; justify-content:center; text-align:center;
     }
-    .hero::after { content:''; position:absolute; inset:0; background:rgba(0,0,0,0.4); }
-    .hero-content { position:relative; z-index:1; color:#fff; max-width:90%; }
+    .hero::after {
+      content:''; position:absolute; inset:0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .hero-content {
+      position:relative; z-index:1;
+      max-width:90%; color:#fff;
+    }
     .hero h1 { font-family:'Playfair Display',serif; font-size:3em; margin-bottom:0.5em; }
     .hero p { font-size:1.2em; margin-bottom:0.5em; }
-    .scroll-down { position:absolute; bottom:20px; font-size:1.5em; color:#fff; animation:bounce 2s infinite; }
-    @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
+    .scroll-down {
+      position:absolute; bottom:20px; z-index:1;
+      font-size:1.5em; color:#fff;
+      animation:bounce 2s infinite;
+    }
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(10px); }
+    }
 
-    /* Main Content */
-    .content { width:100%; max-width:640px; margin:0 auto; padding:0 20px 40px; }
+    /* Wrapper for centering content */
+    .content, .footer { width:100%; max-width:640px; margin:0 auto; padding:20px; }
 
-    /* Gallery with fade-in */
-    .gallery { display:grid; grid-template-columns:repeat(2,1fr); gap:12px; margin-bottom:30px; }
+    /* Gallery with scroll fade-in */
+    .gallery {
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:12px;
+      margin-bottom:30px;
+    }
     .gallery img {
-      width:100%; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);
+      width:100%; border-radius:12px;
+      box-shadow:0 4px 12px rgba(0,0,0,0.1);
       opacity:0; transform:translateY(20px);
       transition:opacity .6s ease-out, transform .6s ease-out;
+      will-change:opacity, transform;
     }
     .gallery img.visible { opacity:1; transform:translateY(0); }
+    /* staggered delays */
+    .gallery img:nth-child(1).visible { transition-delay:0.2s; }
+    .gallery img:nth-child(2).visible { transition-delay:0.4s; }
+    .gallery img:nth-child(3).visible { transition-delay:0.6s; }
+    .gallery img:nth-child(4).visible { transition-delay:0.8s; }
 
     /* Sections */
     .section { margin-bottom:40px; text-align:center; }
@@ -59,14 +83,13 @@
     .calendar-table .highlight { background:#ffe5e5; border-radius:50%; display:inline-block; width:32px; height:32px; line-height:32px; color:#e63946; font-weight:600; }
 
     /* Guestbook */
-    .guestbook { margin-bottom:40px; text-align:center; }
-    .guestbook-form { display:flex; flex-direction:column; gap:10px; max-width:600px; margin:20px auto; }
-    .guestbook-form input, .guestbook-form textarea { padding:10px; border:1px solid #ccc; border-radius:6px; font-size:1em; resize:vertical; }
-    .guestbook-form button { width:120px; padding:10px; margin-top:10px; background:#333; color:#fff; border:none; border-radius:30px; font-weight:600; cursor:pointer; transition:background .3s; }
+    .guestbook-form { display:flex; flex-direction:column; gap:10px; }
+    .guestbook-form input, .guestbook-form textarea { padding:10px; border:1px solid #ccc; border-radius:6px; font-size:1em; }
+    .guestbook-form button { width:120px; padding:10px; background:#333; color:#fff; border:none; border-radius:30px; font-weight:600; cursor:pointer; transition:background .3s; }
     .guestbook-form button:hover { background:#555; }
 
     /* Footer */
-    .footer { text-align:center; font-size:0.9em; color:#aaa; padding:40px 0; }
+    .footer { text-align:center; font-size:0.9em; color:#aaa; }
   </style>
 </head>
 <body>
@@ -81,7 +104,6 @@
 
   <!-- Main Content -->
   <div class="content">
-
     <!-- Gallery -->
     <div class="gallery">
       <img src="photo1.jpg" alt="사진 1">
@@ -125,13 +147,13 @@
     </div>
 
     <!-- Action Buttons -->
-    <div class="buttons">
+    <div class="section buttons">
       <a href="tel:01076766059" class="btn">전화하기</a>
       <a href="https://map.naver.com" class="btn">오시는 길</a>
     </div>
 
     <!-- Embedded Naver Map -->
-    <div class="map-embed">
+    <div class="section map-embed">
       <h2>오시는 길</h2>
       <div id="naver-map"></div>
     </div>
@@ -154,7 +176,7 @@
     </div>
 
     <!-- Guestbook -->
-    <div class="guestbook section">
+    <div class="section guestbook">
       <h2>방명록</h2>
       <form class="guestbook-form" action="#" method="post">
         <input type="text" name="name" placeholder="이름" required>
@@ -178,9 +200,12 @@
       const images = document.querySelectorAll('.gallery img');
       const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) { entry.target.classList.add('visible'); obs.unobserve(entry.target); }
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
         });
-      }, { threshold: 0.1 });
+      }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
       images.forEach(img => observer.observe(img));
 
       // guestbook handler
@@ -189,8 +214,7 @@
 
       // Naver map init
       var map = new naver.maps.Map('naver-map', {
-        center: new naver.maps.LatLng(37.2635, 127.0286),
-        zoom: 15
+        center: new naver.maps.LatLng(37.2635, 127.0286), zoom: 15
       });
       new naver.maps.Marker({ position: map.getCenter(), map: map, title: '더아리엘' });
     });
