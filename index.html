@@ -8,13 +8,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height:100%; font-family:'Noto Sans KR',sans-serif; background:#fafafa; color:#333; }
+    html, body { height:100%; font-family:'Noto Sans KR',sans-serif; background:#fafafa; color:#333; overflow-x:hidden; }
     a { text-decoration:none; color:inherit; }
 
     /* Hero Section: fullscreen */
     .hero {
       width:100%; height:100vh;
-      background:url('hero.jpg') center/cover no-repeat fixed;
+      background:url('hero.jpg') center center / cover no-repeat;
+      background-attachment: scroll;
       position:relative;
       display:flex; align-items:center; justify-content:center; text-align:center;
     }
@@ -25,23 +26,12 @@
     .scroll-down { position:absolute; bottom:20px; font-size:1.5em; color:#fff; animation:bounce 2s infinite; }
     @keyframes bounce { 0%,100%{transform:translateY(0);} 50%{transform:translateY(10px);} }
 
+    /* Gallery: scroll-snap one image at a time */
+    .gallery { display:flex; flex-direction:column; scroll-snap-type:y mandatory; overflow-y:auto; height:100vh; }
+    .gallery img { scroll-snap-align:start; flex-shrink:0; width:100%; height:100vh; object-fit:cover; }
+
     /* Centered content wrapper */
     .content, .footer { width:100%; max-width:640px; margin:0 auto; padding:20px; }
-
-    /* Gallery with fade-in */
-    .gallery {
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-      margin-bottom:40px;
-    }
-    .gallery img {
-      width:100%; border-radius:12px;
-      box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      opacity:0; transform:translateY(20px);
-      transition:opacity .6s ease-out, transform .6s ease-out;
-    }
-    .gallery img.visible { opacity:1; transform:translateY(0); }
 
     /* Sections */
     .section { margin-bottom:40px; text-align:center; }
@@ -55,11 +45,7 @@
     .btn:hover { background:#555; }
 
     /* Map Embed */
-    .map-embed iframe {
-      width:100%; height:350px; border:0;
-      border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1);
-      margin-top:20px;
-    }
+    .map-embed iframe { width:100%; height:350px; border:0; border-radius:12px; box-shadow:0 4px 12px rgba(0,0,0,0.1); margin-top:20px; }
 
     /* Calendar Styles */
     .calendar-table { width:100%; max-width:400px; margin:20px auto; border-collapse:collapse; border-radius:12px; overflow:hidden; }
@@ -73,6 +59,9 @@
     .guestbook-form input, .guestbook-form textarea { padding:12px; border:1px solid #ccc; border-radius:6px; font-size:1em; font-weight:300; }
     .guestbook-form button { width:140px; align-self:center; padding:12px; background:#333; color:#fff; border:none; border-radius:30px; font-weight:500; cursor:pointer; transition:background .3s; }
     .guestbook-form button:hover { background:#555; }
+    .entry { background:#fff; border:1px solid #ddd; padding:12px; border-radius:6px; margin-bottom:10px; position:relative; }
+    .entry .actions { position:absolute; top:10px; right:10px; display:flex; gap:5px; }
+    .entry button { background:transparent; border:none; cursor:pointer; font-size:0.9em; }
 
     /* Footer */
     .footer { text-align:center; font-size:0.9em; color:#aaa; font-weight:300; padding-bottom:40px; }
@@ -88,16 +77,16 @@
     <div class="scroll-down">⌄</div>
   </div>
 
+  <!-- Gallery: one image per viewport -->
+  <div class="gallery">
+    <img src="photo1.jpg" alt="사진 1">
+    <img src="photo2.jpg" alt="사진 2">
+    <img src="photo3.jpg" alt="사진 3">
+    <img src="photo4.jpg" alt="사진 4">
+  </div>
+
   <!-- Main Content -->
   <div class="content">
-    <!-- Gallery -->
-    <div class="gallery">
-      <img src="photo1.jpg" alt="사진 1">
-      <img src="photo2.jpg" alt="사진 2">
-      <img src="photo3.jpg" alt="사진 3">
-      <img src="photo4.jpg" alt="사진 4">
-    </div>
-
     <!-- Invitation -->
     <div class="section">
       <h2>Invitation</h2>
@@ -115,6 +104,8 @@
     <div class="section parents">
       <p>김용안 · 이해성의 아들 <strong>수빈</strong></p>
       <p>이롱순 · 박승희의 딸 <strong>예림</strong></p>
+      <!-- 추가 문구 -->
+      <p style="margin-top:16px; font-style:italic; color:#777;">자리가 협소하여 정중히 화환은 사양합니다.</p>
     </div>
 
     <!-- Details -->
@@ -141,7 +132,7 @@
     <!-- Map Embed -->
     <div class="section map-embed">
       <h2>오시는 길</h2>
-      <iframe src="https://maps.google.com/maps?q=경기도%20수원시%20더아리엘&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
+      <iframe src="https://www.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EB%8D%94%EC%95%84%EB%A6%AC%EC%97%98&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
     </div>
 
     <!-- Calendar -->
@@ -164,11 +155,12 @@
     <!-- Guestbook -->
     <div class="section guestbook">
       <h2>방명록</h2>
-      <form class="guestbook-form" action="#" method="post">
-        <input type="text" name="name" placeholder="이름" required>
-        <textarea name="message" rows="4" placeholder="축하 메시지를 남겨주세요." required></textarea>
+      <form id="guestbook-form" class="guestbook-form">
+        <input type="text" id="name" placeholder="이름" required>
+        <textarea id="message" rows="4" placeholder="축하 메시지를 남겨주세요." required></textarea>
         <button type="submit">남기기</button>
       </form>
+      <div id="guestbook-entries"></div>
     </div>
   </div>
 
@@ -178,20 +170,60 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // Gallery fade-in with stagger
-      const images = document.querySelectorAll('.gallery img');
-      const observer = new IntersectionObserver((entries, obs) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            const idx = Array.from(images).indexOf(entry.target);
-            setTimeout(() => entry.target.classList.add('visible'), idx * 200);
-            obs.unobserve(entry.target);
-          }
-        });
-      }, { threshold: 0.1 });
-      images.forEach(img => observer.observe(img));
+    // Guestbook with edit/delete and localStorage
+    const form = document.getElementById('guestbook-form');
+    const entriesDiv = document.getElementById('guestbook-entries');
+    let entries = JSON.parse(localStorage.getItem('entries') || '[]');
+
+    function saveEntries() {
+      localStorage.setItem('entries', JSON.stringify(entries));
+    }
+
+    function renderEntries() {
+      entriesDiv.innerHTML = '';
+      entries.forEach((e, idx) => {
+        const div = document.createElement('div');
+        div.className = 'entry';
+        div.innerHTML = `
+          <strong>${e.name}</strong> <em>(${new Date(e.time).toLocaleString()})</em>
+          <p>${e.message}</p>
+          <div class="actions">
+            <button onclick="editEntry(${idx})">수정</button>
+            <button onclick="deleteEntry(${idx})">삭제</button>
+          </div>`;
+        entriesDiv.appendChild(div);
+      });
+    }
+
+    function deleteEntry(idx) {
+      if (confirm('삭제하시겠습니까?')) {
+        entries.splice(idx, 1);
+        saveEntries(); renderEntries();
+      }
+    }
+
+    function editEntry(idx) {
+      const e = entries[idx];
+      const newName = prompt('이름을 수정하세요:', e.name);
+      const newMsg = prompt('메시지를 수정하세요:', e.message);
+      if (newName != null && newMsg != null) {
+        entries[idx].name = newName;
+        entries[idx].message = newMsg;
+        saveEntries(); renderEntries();
+      }
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const msg = document.getElementById('message').value;
+      entries.push({ name, message: msg, time: Date.now() });
+      saveEntries(); renderEntries();
+      form.reset();
     });
+
+    // 초기 렌더
+    renderEntries();
   </script>
 </body>
 </html>
