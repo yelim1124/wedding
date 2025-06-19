@@ -52,8 +52,18 @@
     /* Main Content */
     .content, .footer { width: 100%; max-width: 640px; margin: 0 auto; padding: 20px; }
     .section { margin-bottom: 40px; text-align: center; }
-    .section h2 { font-size: 2em; font-weight: 500; margin-bottom: 16px; }
-    .section p { font-size: 1em; line-height: 1.6; color: #555; }
+    .section h2 {
+      font-size: 2em;
+      font-weight: 500;
+      margin-bottom: 16px;
+      line-height: 1.3; /* 줄 간격 추가 */
+    }
+    .section p {
+      font-size: 1em;
+      line-height: 1.8; /* 줄 간격 추가 */
+      margin-bottom: .75em;
+      color: #555;
+    }
 
     /* Copyable */
     .copyable {
@@ -80,9 +90,17 @@
     .wedding-calendar {
       max-width: 320px; margin: 40px auto; text-align: center; color: #333;
     }
-    .wedding-calendar h2 { font-size: 1em; letter-spacing: 2px; color: #666; margin-bottom: 8px; }
-    .wedding-calendar .date-main { font-size: 1.1em; font-weight: 500; margin-bottom: 4px; }
-    .wedding-calendar .date-sub { font-size: .85em; color: #aaa; margin-bottom: 16px; }
+    .wedding-calendar h2 {
+      font-size: 2em;             /* 다른 섹션과 같은 크기 */
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      line-height: 1.3;           /* 줄 간격 추가 */
+    }
+    .wedding-calendar .date-main,
+    .wedding-calendar .date-sub {
+      line-height: 1.6;           /* 줄 간격 추가 */
+    }
     .wedding-calendar hr { border: none; border-bottom: 1px solid #eee; margin: 16px 0; }
 
     .wedding-calendar .grid {
@@ -227,16 +245,16 @@
          직접 축하를 전하지 못하시는 분들을 위해<br>
          마음을 전하실 공간을 마련하였습니다.</p>
       <details>
-        <summary>신랑측 계좌</summary>
-        <p>신랑(김수빈)<span class="copyable" data-copy="3333169084441">카카오뱅크 3333-16-9084441</span></p>
-        <p>아버지(김용안)<span class="copyable" data-copy="3025684900091">농협 302-5684-9000-91</span></p>
-        <p>어머니(이해성)<span class="copyable" data-copy="3022178894763">농협 302-2178-8947-63</span></p>
+        <summary>신랑측</summary>
+        <p>신랑(김수빈): <span class="copyable" data-copy="3333169084441">카카오뱅크 3333-16-9084441</span></p>
+        <p>아버지(김용안): <span class="copyable" data-copy="3025684900091">농협 302-5684-9000-91</span></p>
+        <p>어머니(이해성): <span class="copyable" data-copy="3022178894763">농협 302-2178-8947-63</span></p>
       </details>
       <details>
-        <summary>신부측 계좌</summary>
-        <p>신부(이예림)<span class="copyable" data-copy="3333062346999">카카오뱅크 3333-06-2346999</span></p>
-        <p>아버지(이롱순)<span class="copyable" data-copy="6666666666666">무통장 6666-66-6666666</span></p>
-        <p>어머니(박승희)<span class="copyable" data-copy="1002859013242">우리 1002-8590-13242</span></p>
+        <summary>신부측</summary>
+        <p>신부(이예림): <span class="copyable" data-copy="3333062346999">카카오뱅크 3333-06-2346999</span></p>
+        <p>아버지(이롱순): <span class="copyable" data-copy="6666666666666">무통장 6666-66-6666666</span></p>
+        <p>어머니(박승희): <span class="copyable" data-copy="1002859013242">우리 1002-8590-13242</span></p>
       </details>
     </div>
 
