@@ -13,8 +13,8 @@
       font-family: 'Noto Sans KR', sans-serif;
       background: #fafafa;
       color: #333;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
+      overflow-y: auto;
+      scroll-snap-type: y proximity;
     }
     a { text-decoration: none; color: inherit; }
 
@@ -61,7 +61,6 @@
     .nav-btn.right { right: 10px; }
 
     /* Sections */
-    .content { scroll-snap-type: y mandatory; }
     .section {
       scroll-snap-align: start;
       min-height: 100vh;
@@ -76,11 +75,25 @@
       font-size: 1em; line-height: 2.5; margin-bottom: 1em; color: #555;
     }
 
-    /* Copyable */
+    /* Copyable spans */
     .copyable { cursor: pointer; color: #007ACC; display: inline-block; }
     .copyable:hover { text-decoration: underline; }
 
-    /* Details */
+    /* Venue photo */
+    .venue-photo {
+      margin: 24px auto;
+      max-width: 100%;
+      text-align: center;
+    }
+    .venue-photo img {
+      width: 100%; border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .venue-photo figcaption {
+      margin-top: 8px; font-size: .9em; color: #666;
+    }
+
+    /* Details tag */
     details {
       background: #fff; border: 1px solid #ddd;
       border-radius: 6px; margin: 20px auto;
@@ -178,7 +191,7 @@
     }
     .entry .actions button:hover { text-decoration: underline; }
 
-    /* Map */
+    /* Map Embed */
     .map-embed iframe {
       width: 100%; height: 350px; border: 0;
       border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -222,30 +235,34 @@
     <p>격려해주시면 감사하겠습니다.</p>
   </div>
 
-  <!-- Details -->
+  <!-- Details with Venue Photo -->
   <div class="section">
     <h2>Details</h2>
     <p>📅 2025년 09월 13일 토요일 오후 4시</p>
     <p>📍 경기도 수원시 더아리엘 6층 스카이가든홀</p>
+    <figure class="venue-photo">
+      <img src="venue.jpg" alt="더아리엘 스카이가든홀 전경">
+      <figcaption>더아리엘 스카이가든홀 전경</figcaption>
+    </figure>
   </div>
 
   <!-- Calendar -->
   <div class="section wedding-calendar">
     <h2>WEDDING DAY</h2>
     <div class="date-main">2025년 9월 13일 토요일｜오후 4시</div>
-    <div class="date-sub">Saturday, September 13, 2025  ｜  PM 4:00</div>
+    <div class="date-sub">Saturday, September 13, 2025 ｜ PM 4:00</div>
     <hr>
     <div class="grid">
       <div class="wd sun">일</div><div class="wd">월</div><div class="wd">화</div>
       <div class="wd">수</div><div class="wd">목</div><div class="wd">금</div><div class="wd sat">토</div>
-      <div class="day empty"></div><div class="day">1</div><div class="day">2</div>
-      <div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day sat">6</div>
-      <div class="day sun">7</div><div class="day">8</div><div class="day">9</div>
-      <div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day sat today">13</div>
-      <div class="day sun">14</div><div class="day">15</div><div class="day">16</div>
-      <div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day sat">20</div>
-      <div class="day sun">21</div><div class="day">22</div><div class="day">23</div>
-      <div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day sat">27</div>
+      <div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div>
+      <div class="day">4</div><div class="day">5</div><div class="day sat">6</div>
+      <div class="day sun">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div>
+      <div class="day">11</div><div class="day">12</div><div class="day sat today">13</div>
+      <div class="day sun">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div>
+      <div class="day">18</div><div class="day">19</div><div class="day sat">20</div>
+      <div class="day sun">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div>
+      <div class="day">25</div><div class="day">26</div><div class="day sat">27</div>
       <div class="day sun">28</div><div class="day">29</div><div class="day">30</div>
       <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
     </div>
@@ -282,7 +299,7 @@
     <p>멀리서도 함께해 주시는 마음만으로도 큰 축복이지만,<br>
        직접 축하를 전하지 못하시는 분들을 위해<br>
        마음을 전하실 공간을 마련하였습니다.</p>
-    <details>  
+    <details>
       <summary>신랑측</summary>
       <p>신랑(김수빈): <span class="copyable" data-copy="3333169084441">카카오뱅크 3333-16-9084441</span></p>
       <p>아버지(김용안): <span class="copyable" data-copy="3025684900091">농협 302-5684-9000-91</span></p>
@@ -296,7 +313,7 @@
     </details>
   </div>
 
-  <!-- Map -->
+  <!-- Map Embed -->
   <div class="section map-embed">
     <iframe src="https://www.google.com/maps?q=%EA%B2%경기도%20수원시%20더아리엘&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
   </div>
@@ -306,7 +323,7 @@
     <h2>방명록</h2>
     <form id="guestbook-form" class="guestbook-form">
       <input type="text" id="name" placeholder="이름" required>
-      <textarea id="message" rows="4" placeholder="축하 메시지를 남겨주세요." required></textarea>  
+      <textarea id="message" rows="4" placeholder="축하 메시지를 남겨주세요." required></textarea>
       <button type="submit">남기기</button>
     </form>
     <div id="guestbook-entries"></div>
@@ -338,11 +355,11 @@
     setInterval(update,1000);
     update();
 
-    // Guestbook
+    // Guestbook logic
     const form = document.getElementById('guestbook-form'),
           entriesDiv = document.getElementById('guestbook-entries');
     let entries = JSON.parse(localStorage.getItem('entries')||'[]');
-    function saveEntries(){ localStorage.setItem('entries',JSON.stringify(entries)); }
+    function saveEntries(){ localStorage.setItem('entries', JSON.stringify(entries)); }
     function renderEntries(){
       entriesDiv.innerHTML = '';
       entries.forEach((e,i)=>{
@@ -361,27 +378,28 @@
     }
     function deleteEntry(i){ if(confirm('삭제하시겠습니까?')){ entries.splice(i,1); saveEntries(); renderEntries(); }}
     function editEntry(i){
-      const nn=prompt('이름:',entries[i].name),
-            nm=prompt('메시지:',entries[i].message);
+      const nn = prompt('이름:', entries[i].name),
+            nm = prompt('메시지:', entries[i].message);
       if(nn!=null&&nm!=null){ entries[i].name=nn; entries[i].message=nm; saveEntries(); renderEntries(); }
     }
-    form.addEventListener('submit',e=>{
+    form.addEventListener('submit', e=>{
       e.preventDefault();
-      entries.push({ name:form.name.value, message:form.message.value, time:Date.now() });
+      entries.push({ name: form.name.value, message: form.message.value, time: Date.now() });
       saveEntries(); renderEntries(); form.reset();
     });
     renderEntries();
 
     // Copy to clipboard
     document.querySelectorAll('.copyable').forEach(el=>{
-      el.addEventListener('click',()=>{
+      el.addEventListener('click', ()=>{
         navigator.clipboard.writeText(el.getAttribute('data-copy')).then(()=>{
-          const ori=el.textContent;
-          el.textContent='복사됨';
-          setTimeout(()=>el.textContent=ori,2000);
+          const ori = el.textContent;
+          el.textContent = '복사됨';
+          setTimeout(()=> el.textContent = ori, 2000);
         });
       });
     });
   </script>
 </body>
 </html>
+
