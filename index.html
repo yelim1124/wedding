@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>우리 결혼합니다</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <!-- Google Fonts: Noto Sans KR -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
@@ -17,6 +17,12 @@
       scroll-snap-type: y proximity;
     }
     a { text-decoration: none; color: inherit; }
+
+    /* 이미지 확대(핀치/더블탭) 비활성화 */
+    img {
+      touch-action: none;
+      -ms-touch-action: none;
+    }
 
     /* Hero */
     .hero {
@@ -79,18 +85,21 @@
     .copyable { cursor: pointer; color: #007ACC; display: inline-block; }
     .copyable:hover { text-decoration: underline; }
 
-    /* Venue photo */
-    .venue-photo {
+    /* Couple photo in Details */
+    .couple-photo {
       margin: 24px auto;
-      max-width: 100%;
+      max-width: 300px;
       text-align: center;
     }
-    .venue-photo img {
-      width: 100%; border-radius: 8px;
+    .couple-photo img {
+      width: 100%;
+      border-radius: 50%;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    .venue-photo figcaption {
-      margin-top: 8px; font-size: .9em; color: #666;
+    .couple-photo figcaption {
+      margin-top: 8px;
+      font-size: .9em;
+      color: #666;
     }
 
     /* Details tag */
@@ -235,14 +244,14 @@
     <p>격려해주시면 감사하겠습니다.</p>
   </div>
 
-  <!-- Details with Venue Photo -->
+  <!-- Details with Couple Photo -->
   <div class="section">
     <h2>Details</h2>
     <p>📅 2025년 09월 13일 토요일 오후 4시</p>
     <p>📍 경기도 수원시 더아리엘 6층 스카이가든홀</p>
-    <figure class="venue-photo">
-      <img src="venue.jpg" alt="더아리엘 스카이가든홀 전경">
-      <figcaption>더아리엘 스카이가든홀 전경</figcaption>
+    <figure class="couple-photo">
+      <img src="couple.jpg" alt="수빈과 예림 커플 사진">
+      <figcaption>수빈 💛 예림</figcaption>
     </figure>
   </div>
 
@@ -253,8 +262,8 @@
     <div class="date-sub">Saturday, September 13, 2025 ｜ PM 4:00</div>
     <hr>
     <div class="grid">
-      <div class="wd sun">일</div><div class="wd">월</div><div class="wd">화</div>
-      <div class="wd">수</div><div class="wd">목</div><div class="wd">금</div><div class="wd sat">토</div>
+      <div class="wd sun">일</div><div class="wd">월</div><div class="wd">화</div><div class="wd">수</div>
+      <div class="wd">목</div><div class="wd">금</div><div class="wd sat">토</div>
       <div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div>
       <div class="day">4</div><div class="day">5</div><div class="day sat">6</div>
       <div class="day sun">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div>
@@ -293,7 +302,7 @@
     </details>
   </div>
 
-  <!-- 마음 전하는 곳 -->
+  <!-- 소중한 마음 전하는 곳 -->
   <div class="section">
     <h2>소중한 마음 전하는 곳</h2>
     <p>멀리서도 함께해 주시는 마음만으로도 큰 축복이지만,<br>
@@ -352,20 +361,22 @@
       document.getElementById('s').textContent = Math.floor(diff/1000)%60;
       document.getElementById('left').textContent = Math.floor(diff/86400000);
     }
-    setInterval(update,1000);
+    setInterval(update, 1000);
     update();
 
     // Guestbook logic
     const form = document.getElementById('guestbook-form'),
           entriesDiv = document.getElementById('guestbook-entries');
-    let entries = JSON.parse(localStorage.getItem('entries')||'[]');
-    function saveEntries(){ localStorage.setItem('entries', JSON.stringify(entries)); }
-    function renderEntries(){
+    let entries = JSON.parse(localStorage.getItem('entries') || '[]');
+    function saveEntries() {
+      localStorage.setItem('entries', JSON.stringify(entries));
+    }
+    function renderEntries() {
       entriesDiv.innerHTML = '';
-      entries.forEach((e,i)=>{
+      entries.forEach((e,i) => {
         const el = document.createElement('div');
-        el.className='entry';
-        el.innerHTML=`
+        el.className = 'entry';
+        el.innerHTML = `
           <strong>${e.name}</strong>
           <em>${new Date(e.time).toLocaleString()}</em>
           <p>${e.message}</p>
@@ -376,30 +387,42 @@
         entriesDiv.appendChild(el);
       });
     }
-    function deleteEntry(i){ if(confirm('삭제하시겠습니까?')){ entries.splice(i,1); saveEntries(); renderEntries(); }}
-    function editEntry(i){
+    function deleteEntry(i) {
+      if (confirm('삭제하시겠습니까?')) {
+        entries.splice(i, 1);
+        saveEntries();
+        renderEntries();
+      }
+    }
+    function editEntry(i) {
       const nn = prompt('이름:', entries[i].name),
             nm = prompt('메시지:', entries[i].message);
-      if(nn!=null&&nm!=null){ entries[i].name=nn; entries[i].message=nm; saveEntries(); renderEntries(); }
+      if (nn != null && nm != null) {
+        entries[i].name = nn;
+        entries[i].message = nm;
+        saveEntries();
+        renderEntries();
+      }
     }
-    form.addEventListener('submit', e=>{
+    form.addEventListener('submit', e => {
       e.preventDefault();
       entries.push({ name: form.name.value, message: form.message.value, time: Date.now() });
-      saveEntries(); renderEntries(); form.reset();
+      saveEntries();
+      renderEntries();
+      form.reset();
     });
     renderEntries();
 
     // Copy to clipboard
-    document.querySelectorAll('.copyable').forEach(el=>{
-      el.addEventListener('click', ()=>{
-        navigator.clipboard.writeText(el.getAttribute('data-copy')).then(()=>{
+    document.querySelectorAll('.copyable').forEach(el => {
+      el.addEventListener('click', () => {
+        navigator.clipboard.writeText(el.getAttribute('data-copy')).then(() => {
           const ori = el.textContent;
           el.textContent = '복사됨';
-          setTimeout(()=> el.textContent = ori, 2000);
+          setTimeout(() => el.textContent = ori, 2000);
         });
       });
     });
   </script>
 </body>
 </html>
-
