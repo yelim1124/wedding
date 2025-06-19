@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>우리 결혼합니다</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <!-- Google Fonts: Noto Sans KR -->
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -17,26 +16,27 @@
     }
     a { text-decoration: none; color: inherit; }
 
-    /* Gallery */
+    img {
+      touch-action: none;
+      -ms-touch-action: none;
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .gallery-container {
       position: relative;
-      overflow: hidden;
-      height: 100vh;
+      overscroll-behavior: auto;
     }
     .gallery {
       display: flex;
       overflow-x: scroll;
-      scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      height: 100%;
       scroll-behavior: smooth;
       touch-action: pan-x;
     }
     .gallery img {
       flex: 0 0 100%;
-      scroll-snap-align: start;
-      width: 100%;
-      height: 100%;
       object-fit: cover;
     }
     .nav-btn {
@@ -54,7 +54,6 @@
     .nav-btn.left { left: 10px; }
     .nav-btn.right { right: 10px; }
 
-    /* Hero */
     .hero {
       width: 100%;
       height: 100vh;
@@ -75,7 +74,6 @@
     .hero h1 { font-size: 3em; font-weight: 700; }
     .hero p { font-size: 1.2em; margin-top: .5em; }
 
-    /* Sections */
     .section {
       min-height: 100vh;
       display: flex;
@@ -98,18 +96,15 @@
       color: #555;
     }
 
-    /* Copyable spans */
     .copyable { cursor: pointer; color: #007ACC; display: inline-block; }
     .copyable:hover { text-decoration: underline; }
 
-    /* Couple photo in Details */
     .couple-photo {
       margin: 24px auto;
       max-width: 300px;
       text-align: center;
     }
     .couple-photo img {
-      width: 100%;
       border-radius: 50%;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
@@ -119,7 +114,6 @@
       color: #666;
     }
 
-    /* Details tag */
     details {
       background: #fff;
       border: 1px solid #ddd;
@@ -138,7 +132,6 @@
     summary::-webkit-details-marker { display: none; }
     details[open] summary { background: #f5f5f5; }
 
-    /* Calendar */
     .wedding-calendar {
       max-width: 320px;
       margin: 0 auto 40px;
@@ -223,7 +216,6 @@
     }
     .wedding-calendar .footer b { color: #000; }
 
-    /* Guestbook */
     .guestbook-form {
       display: flex;
       flex-direction: column;
@@ -290,7 +282,6 @@
     }
     .entry .actions button:hover { text-decoration: underline; }
 
-    /* Map Embed */
     .map-embed iframe {
       width: 100%;
       height: 350px;
@@ -300,7 +291,6 @@
       margin: 40px auto;
     }
 
-    /* Footer */
     .footer {
       text-align: center;
       font-size: .9em;
@@ -397,7 +387,7 @@
   <div class="section">
     <h2>소중한 마음 전하는 곳</h2>
     <p>멀리서도 함께해 주시는 마음만으로도 큰 축복이지만,<br>
-       직접 축하를 전하지 못하시는 분들을 위해<br>  
+       직접 축하를 전하지 못하시는 분들을 위해<br>
        마음을 전하실 공간을 마련하였습니다.</p>
     <details>
       <summary>신랑측</summary>
@@ -432,15 +422,12 @@
   </div>
 
   <script>
-    // Gallery scroll
     function scrollGallery(dir) {
       document.getElementById('gallery').scrollBy({
         left: dir * document.getElementById('gallery').clientWidth,
         behavior: 'smooth'
       });
     }
-
-    // Countdown
     const target = new Date(2025, 8, 13, 16, 0, 0);
     function update() {
       const now = new Date(), diff = Math.max(0, target - now);
@@ -453,7 +440,6 @@
     setInterval(update, 1000);
     update();
 
-    // Guestbook logic
     const form = document.getElementById('guestbook-form'),
           entriesDiv = document.getElementById('guestbook-entries');
     let entries = JSON.parse(localStorage.getItem('entries') || '[]');
@@ -479,30 +465,24 @@
     function deleteEntry(i) {
       if (confirm('삭제하시겠습니까?')) {
         entries.splice(i, 1);
-        saveEntries();
-        renderEntries();
+        saveEntries(); renderEntries();
       }
     }
     function editEntry(i) {
       const nn = prompt('이름:', entries[i].name),
             nm = prompt('메시지:', entries[i].message);
       if (nn != null && nm != null) {
-        entries[i].name = nn;
-        entries[i].message = nm;
-        saveEntries();
-        renderEntries();
+        entries[i].name = nn; entries[i].message = nm;
+        saveEntries(); renderEntries();
       }
     }
     form.addEventListener('submit', e => {
       e.preventDefault();
       entries.push({ name: form.name.value, message: form.message.value, time: Date.now() });
-      saveEntries();
-      renderEntries();
-      form.reset();
+      saveEntries(); renderEntries(); form.reset();
     });
     renderEntries();
 
-    // Copy to clipboard
     document.querySelectorAll('.copyable').forEach(el => {
       el.addEventListener('click', () => {
         navigator.clipboard.writeText(el.getAttribute('data-copy')).then(() => {
