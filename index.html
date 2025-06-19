@@ -20,8 +20,7 @@
       text-align: center;
     }
     .hero::after {
-      content: '';
-      position: absolute; inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: rgba(0,0,0,0.4);
     }
     .hero-content { position: relative; z-index: 1; color: #fff; }
@@ -50,26 +49,20 @@
     .nav-btn.left { left: 10px; }
     .nav-btn.right { right: 10px; }
 
-    /* Content + Sections */
+    /* Main Content */
     .content, .footer { width: 100%; max-width: 640px; margin: 0 auto; padding: 20px; }
     .section { margin-bottom: 40px; text-align: center; }
     .section h2 { font-size: 2em; font-weight: 500; margin-bottom: 16px; }
     .section p { font-size: 1em; line-height: 1.6; color: #555; }
 
     /* Copyable */
-    .copyable {
-      cursor: pointer;
-      color: #007ACC;
-    }
-    .copyable:hover {
-      text-decoration: underline;
-    }
+    .copyable { cursor: pointer; color: #007ACC; }
+    .copyable:hover { text-decoration: underline; }
 
     /* Details */
     details {
       background: #fff; border: 1px solid #ddd;
-      border-radius: 6px; margin-bottom: 10px;
-      text-align: left;
+      border-radius: 6px; margin-bottom: 10px; text-align: left;
     }
     summary {
       padding: 12px; cursor: pointer; font-weight: 500;
@@ -81,8 +74,7 @@
 
     /* Wedding Calendar */
     .wedding-calendar {
-      max-width: 320px; margin: 40px auto;
-      text-align: center; color: #333;
+      max-width: 320px; margin: 40px auto; text-align: center; color: #333;
     }
     .wedding-calendar h2 { font-size: 1em; letter-spacing: 2px; color: #666; margin-bottom: 8px; }
     .wedding-calendar .date-main { font-size: 1.1em; font-weight: 500; margin-bottom: 4px; }
@@ -94,14 +86,13 @@
       grid-template-columns: repeat(7, 1fr);
       grid-auto-rows: 40px;
       gap: 4px;
-      margin-bottom: 16px;
+      width: 100%;
+      margin: 0 auto 16px;
+      justify-items: center;
     }
     .wedding-calendar .grid div {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: .85em;
-      padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .85em; padding: 0;
     }
     .wedding-calendar .wd { color: #999; }
     .wedding-calendar .sun { color: #e57373; }
@@ -110,8 +101,7 @@
 
     .wedding-calendar .today {
       background: #a5d6a7; color: #fff;
-      border-radius: 50%;
-      width: 28px; height: 28px;
+      border-radius: 50%; width: 28px; height: 28px;
       display: flex; align-items: center; justify-content: center;
       font-size: .85em;
     }
@@ -141,7 +131,6 @@
     }
 
     .footer { text-align: center; font-size: .9em; color: #aaa; padding-bottom: 40px; }
-
   </style>
 </head>
 <body>
@@ -215,43 +204,39 @@
       <h2>연락처</h2>
       <details>
         <summary>신랑측</summary>
-        <p>신랑(수빈): <span class="copyable" data-copy="01076766059">010-7676-6059</span></p>
-        <p>아버지(김용안): <span class="copyable" data-copy="01063684568">010-6368-4568</span></p>
-        <p>어머니(이해성): <span class="copyable" data-copy="01071347152">010-7134-7152</span></p>
+        <p>수빈: <span class="copyable" data-copy="01076766059">010-7676-6059</span></p>
+        <p>김용안: <span class="copyable" data-copy="01063684568">010-6368-4568</span></p>
+        <p>이해성: <span class="copyable" data-copy="01071347152">010-7134-7152</span></p>
       </details>
       <details>
         <summary>신부측</summary>
-        <p>신부(예림): <span class="copyable" data-copy="01085676059">010-8567-6059</span></p>
-        <p>아버지(이롱순): <span class="copyable" data-copy="01053663989">010-5366-3989</span></p>
-        <p>어머니(박승희): <span class="copyable" data-copy="01041288007">010-4128-8007</span></p>
+        <p>예림: <span class="copyable" data-copy="01085676059">010-8567-6059</span></p>
+        <p>이롱순: <span class="copyable" data-copy="01053663989">010-5366-3989</span></p>
+        <p>박승희: <span class="copyable" data-copy="01041288007">010-4128-8007</span></p>
       </details>
     </div>
 
-    <!-- 소중한 마음 전하는 곳 -->
+    <!-- 마음 전하는 곳 + 계좌 -->
     <div class="section">
       <h2>소중한 마음 전하는 곳</h2>
       <p>멀리서도 함께해 주시는 마음만으로도 큰 축복이지만,<br>
          직접 축하를 전하지 못하시는 분들을 위해<br>
          마음을 전하실 공간을 마련하였습니다.</p>
-    </div>
-
-    <!-- Bank Accounts -->
-    <div class="section">
       <details>
-        <summary>신랑측</summary>
-        <p>신랑(수빈): <span class="copyable" data-copy="3333169084441">카카오뱅크 3333-16-9084441</span></p>
-        <p>아버지(김용안): <span class="copyable" data-copy="3025684900091">농협은행 302-5684-9000-91</span></p>
-        <p>어머니(이해성): <span class="copyable" data-copy="3022178894763">농협은행 302-2178-8947-63</span></p>
+        <summary>신랑측 계좌</summary>
+        <p>카카오뱅크: <span class="copyable" data-copy="3333169084441">3333-16-9084441</span></p>
+        <p>농협: <span class="copyable" data-copy="3025684900091">302-5684-9000-91</span></p>
+        <p>농협: <span class="copyable" data-copy="3022178894763">302-2178-8947-63</span></p>
       </details>
       <details>
-        <summary>신부측</summary>
-        <p>신부(예림): <span class="copyable" data-copy="3333062346999">카카오뱅크 3333-06-2346999</span></p>
-        <p>아버지(이롱순): <span class="copyable" data-copy="6666666666666">6666-66-6666666</span></p>
-        <p>어머니(박승희): <span class="copyable" data-copy="1002859013242">우리은행 1002-8590-13242</span></p>
+        <summary>신부측 계좌</summary>
+        <p>카카오뱅크: <span class="copyable" data-copy="3333062346999">3333-06-2346999</span></p>
+        <p>무통장: <span class="copyable" data-copy="6666666666666">6666-66-6666666</span></p>
+        <p>우리: <span class="copyable" data-copy="1002859013242">1002-8590-13242</span></p>
       </details>
     </div>
 
-    <!-- Map Embed -->
+    <!-- Map -->
     <div class="map-embed">
       <iframe src="https://www.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EB%8D%94%EC%95%84%EB%A6%AC%EC%97%98&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
     </div>
@@ -259,7 +244,7 @@
     <!-- Guestbook -->
     <div class="section guestbook">
       <h2>방명록</h2>
-      <form id="guestbook-form" class="guestbook-form">
+      <form id="guestbook-form">
         <input type="text" id="name" placeholder="이름" required>
         <textarea id="message" rows="4" placeholder="축하 메시지를 남겨주세요." required></textarea>
         <button type="submit">남기기</button>
@@ -275,8 +260,10 @@
   <script>
     // Gallery scroll
     function scrollGallery(dir) {
-      const g = document.getElementById('gallery');
-      g.scrollBy({ left: dir * g.clientWidth, behavior: 'smooth' });
+      document.getElementById('gallery').scrollBy({
+        left: dir * document.getElementById('gallery').clientWidth,
+        behavior: 'smooth'
+      });
     }
 
     // Countdown
@@ -308,14 +295,12 @@
       entriesDiv.innerHTML = '';
       entries.forEach((e, i) => {
         const d = document.createElement('div');
-        d.className = 'entry';
         d.innerHTML = `
           <strong>${e.name}</strong> <em>(${new Date(e.time).toLocaleString()})</em>
           <p>${e.message}</p>
-          <div class="actions">
-            <button onclick="editEntry(${i})">수정</button>
-            <button onclick="deleteEntry(${i})">삭제</button>
-          </div>`;
+          <button onclick="editEntry(${i})">수정</button>
+          <button onclick="deleteEntry(${i})">삭제</button>
+        `;
         entriesDiv.appendChild(d);
       });
     }
@@ -327,9 +312,8 @@
       }
     }
     function editEntry(i) {
-      const e = entries[i];
-      const nn = prompt('이름:', e.name);
-      const nm = prompt('메시지:', e.message);
+      const nn = prompt('이름:', entries[i].name);
+      const nm = prompt('메시지:', entries[i].message);
       if (nn != null && nm != null) {
         entries[i].name = nn;
         entries[i].message = nm;
@@ -339,11 +323,7 @@
     }
     form.addEventListener('submit', e => {
       e.preventDefault();
-      entries.push({
-        name: document.getElementById('name').value,
-        message: document.getElementById('message').value,
-        time: Date.now()
-      });
+      entries.push({ name: form.name.value, message: form.message.value, time: Date.now() });
       saveEntries();
       renderEntries();
       form.reset();
@@ -354,14 +334,12 @@
     function setupCopy() {
       document.querySelectorAll('.copyable').forEach(el => {
         el.addEventListener('click', () => {
-          const text = el.getAttribute('data-copy');
-          navigator.clipboard.writeText(text)
-            .then(() => {
-              const original = el.textContent;
-              el.textContent = '복사됨';
-              setTimeout(() => el.textContent = original, 2000);
-            })
-            .catch(err => console.error('복사 실패:', err));
+          const txt = el.getAttribute('data-copy');
+          navigator.clipboard.writeText(txt).then(() => {
+            const ori = el.textContent;
+            el.textContent = '복사됨';
+            setTimeout(() => el.textContent = ori, 2000);
+          });
         });
       });
     }
