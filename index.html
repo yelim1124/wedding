@@ -14,23 +14,14 @@
       background: #fafafa;
       color: #333;
       overflow-y: auto;
-      scroll-snap-type: y proximity;
     }
     a { text-decoration: none; color: inherit; }
-
-    /* 이미지 확대(핀치/더블탭) 비활성화 */
-    img {
-      touch-action: none;
-      -ms-touch-action: none;
-    }
 
     /* Gallery */
     .gallery-container {
       position: relative;
       overflow: hidden;
       height: 100vh;
-      scroll-snap-align: start;
-      overscroll-behavior: auto;
     }
     .gallery {
       display: flex;
@@ -40,7 +31,6 @@
       height: 100%;
       scroll-behavior: smooth;
       touch-action: pan-x;
-      overscroll-behavior: auto;
     }
     .gallery img {
       flex: 0 0 100%;
@@ -74,7 +64,6 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      scroll-snap-align: start;
     }
     .hero::after {
       content: '';
@@ -88,7 +77,6 @@
 
     /* Sections */
     .section {
-      scroll-snap-align: start;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -364,6 +352,7 @@
   <div class="section wedding-calendar">
     <h2>WEDDING DAY</h2>
     <div class="date-main">2025년 9월 13일 토요일｜오후 4시</div>
+    <div class="date-sub">Saturday, September 13, 2025 ｜ PM 4:00</div>
     <hr>
     <div class="grid">
       <div class="wd sun">일</div><div class="wd">월</div><div class="wd">화</div><div class="wd">수</div>
