@@ -8,7 +8,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { height: 100%; font-family: 'Noto Sans KR', sans-serif; background: #fafafa; color: #333; overflow-x: hidden; }
+    html, body {
+      height: 100%;
+      font-family: 'Noto Sans KR', sans-serif;
+      background: #fafafa;
+      color: #333;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+    }
     a { text-decoration: none; color: inherit; }
 
     /* Hero */
@@ -18,6 +25,7 @@
       position: relative; display: flex;
       align-items: center; justify-content: center;
       text-align: center;
+      scroll-snap-align: start;
     }
     .hero::after {
       content: ''; position: absolute; inset: 0;
@@ -28,7 +36,10 @@
     .hero p { font-size: 1.2em; margin-top: .5em; }
 
     /* Gallery */
-    .gallery-container { position: relative; overflow: hidden; height: 100vh; }
+    .gallery-container {
+      position: relative; overflow: hidden; height: 100vh;
+      scroll-snap-align: start;
+    }
     .gallery {
       display: flex; overflow-x: scroll;
       scroll-snap-type: x mandatory;
@@ -49,68 +60,55 @@
     .nav-btn.left { left: 10px; }
     .nav-btn.right { right: 10px; }
 
-    /* Main Content */
-    .content, .footer { width: 100%; max-width: 640px; margin: 0 auto; padding: 20px; }
-    .section { margin-bottom: 40px; text-align: center; }
+    /* Sections */
+    .content { scroll-snap-type: y mandatory; }
+    .section {
+      scroll-snap-align: start;
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 20px; text-align: center;
+    }
+    .section + .section { border-top: 1px solid #eee; }
     .section h2 {
-      font-size: 2em;
-      font-weight: 500;
-      margin-bottom: 16px;
-      line-height: 1.3; /* 줄 간격 추가 */
+      font-size: 2em; font-weight: 500; margin-bottom: 24px; line-height: 1.3;
     }
     .section p {
-      font-size: 1em;
-      line-height: 1.8; /* 줄 간격 추가 */
-      margin-bottom: .75em;
-      color: #555;
+      font-size: 1em; line-height: 2.5; margin-bottom: 1em; color: #555;
     }
 
     /* Copyable */
-    .copyable {
-      cursor: pointer;
-      color: #007ACC;
-      display: inline-block;
-    }
+    .copyable { cursor: pointer; color: #007ACC; display: inline-block; }
     .copyable:hover { text-decoration: underline; }
 
     /* Details */
     details {
       background: #fff; border: 1px solid #ddd;
-      border-radius: 6px; margin-bottom: 10px; text-align: left;
+      border-radius: 6px; margin: 20px auto;
+      width: calc(100% - 40px); text-align: left; padding: 0 12px 8px;
     }
     summary {
-      padding: 12px; cursor: pointer; font-weight: 500;
-      list-style: none;
+      padding: 12px; cursor: pointer; font-weight: 500; list-style: none;
     }
     summary::-webkit-details-marker { display: none; }
     details[open] summary { background: #f5f5f5; }
-    details p { padding: 0 12px 12px; margin: 0; color: #555; }
 
-    /* Wedding Calendar */
+    /* Calendar */
     .wedding-calendar {
-      max-width: 320px; margin: 40px auto; text-align: center; color: #333;
+      max-width: 320px; margin: 0 auto 40px; text-align: center; color: #333;
     }
     .wedding-calendar h2 {
-      font-size: 2em;             /* 다른 섹션과 같은 크기 */
-      font-weight: 500;
-      letter-spacing: 2px;
-      margin-bottom: 16px;
-      line-height: 1.3;           /* 줄 간격 추가 */
+      font-size: 2em; font-weight: 500; letter-spacing: 2px;
+      margin-bottom: 16px; line-height: 1.3;
     }
     .wedding-calendar .date-main,
     .wedding-calendar .date-sub {
-      line-height: 1.6;           /* 줄 간격 추가 */
+      line-height: 2.5; margin-bottom: 8px;
     }
     .wedding-calendar hr { border: none; border-bottom: 1px solid #eee; margin: 16px 0; }
-
     .wedding-calendar .grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      grid-auto-rows: 40px;
-      gap: 4px;
-      width: 100%;
-      margin: 0 auto 16px;
-      justify-items: center;
+      display: grid; grid-template-columns: repeat(7,1fr);
+      grid-auto-rows: 40px; gap: 4px;
+      width: 100%; margin: 0 auto 16px; justify-items: center;
     }
     .wedding-calendar .grid div {
       display: flex; align-items: center; justify-content: center;
@@ -120,14 +118,11 @@
     .wedding-calendar .sun { color: #e57373; }
     .wedding-calendar .sat { color: #bbb; }
     .wedding-calendar .day { color: #444; }
-
     .wedding-calendar .today {
-      background: #a5d6a7; color: #fff;
-      border-radius: 50%; width: 28px; height: 28px;
-      display: flex; align-items: center; justify-content: center;
-      font-size: .85em;
+      background: #a5d6a7; color: #fff; border-radius: 50%;
+      width: 28px; height: 28px; display: flex;
+      align-items: center; justify-content: center; font-size: .85em;
     }
-
     .wedding-calendar .countdown {
       display: flex; justify-content: space-between;
       gap: 8px; margin-bottom: 16px;
@@ -145,14 +140,53 @@
     .wedding-calendar .footer { font-size: .85em; color: #666; }
     .wedding-calendar .footer b { color: #000; }
 
-    /* Map Embed */
+    /* Guestbook */
+    .guestbook-form {
+      display: flex; flex-direction: column; gap: 16px;
+      max-width: 400px; margin: 0 auto 40px;
+    }
+    .guestbook-form input,
+    .guestbook-form textarea {
+      width: 100%; padding: 12px;
+      border: 1px solid #ddd; border-radius: 8px;
+      font-size: 1em; line-height: 1.4; resize: vertical;
+    }
+    .guestbook-form button {
+      align-self: center; padding: 10px 24px;
+      background: #a5d6a7; color: #fff; border: none;
+      border-radius: 8px; font-size: 1em; cursor: pointer;
+      transition: background .2s;
+    }
+    .guestbook-form button:hover { background: #81c784; }
+    #guestbook-entries {
+      display: flex; flex-direction: column; gap: 16px;
+      max-width: 500px; margin: 0 auto;
+    }
+    .entry {
+      background: #fff; padding: 16px; border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.05); text-align: left;
+    }
+    .entry strong {
+      display: block; font-size: 1.1em; margin-bottom: 4px; color: #333;
+    }
+    .entry em { font-size: .85em; color: #999; }
+    .entry p { margin: 8px 0; line-height: 1.6; color: #555; }
+    .entry .actions { text-align: right; margin-top: 8px; }
+    .entry .actions button {
+      background: none; border: none; color: #007ACC;
+      font-size: .9em; margin-left: 8px; cursor: pointer;
+    }
+    .entry .actions button:hover { text-decoration: underline; }
+
+    /* Map */
     .map-embed iframe {
       width: 100%; height: 350px; border: 0;
       border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-bottom: 40px;
+      margin: 40px auto;
     }
 
-    .footer { text-align: center; font-size: .9em; color: #aaa; padding-bottom: 40px; }
+    /* Footer */
+    .footer { text-align: center; font-size: .9em; color: #aaa; padding: 40px 20px; }
   </style>
 </head>
 <body>
@@ -176,103 +210,106 @@
     <button class="nav-btn right" onclick="scrollGallery(1)">&#10095;</button>
   </div>
 
-  <!-- Main Content -->
-  <div class="content">
-    <!-- Invitation -->
-    <div class="section">
-      <h2>Invitation</h2>
-      <p>선선한 바람에 마음이 물드는 9월,</p>
-      <p>믿음 안에서 하나 되어 가정을 이루려 합니다.</p>
-      <p>서로를 향한 사랑과 신뢰를 바탕으로</p>
-      <p>하나님 안에서 시작하는 이 걸음이</p>
-      <p>더 깊고 단단해질 수 있도록</p>
-      <p>함께 축복해주시고 따뜻한 응원으로</p>
-      <p>격려해주시면 감사하겠습니다.</p>
-    </div>
+  <!-- Invitation -->
+  <div class="section">
+    <h2>Invitation</h2>
+    <p>선선한 바람에 마음이 물드는 9월,</p>
+    <p>믿음 안에서 하나 되어 가정을 이루려 합니다.</p>
+    <p>서로를 향한 사랑과 신뢰를 바탕으로</p>
+    <p>하나님 안에서 시작하는 이 걸음이</p>
+    <p>더 깊고 단단해질 수 있도록</p>
+    <p>함께 축복해주시고 따뜻한 응원으로</p>
+    <p>격려해주시면 감사하겠습니다.</p>
+  </div>
 
-    <!-- Details -->
-    <div class="section">
-      <h2>Details</h2>
-      <p>📅 2025년 09월 13일 토요일 오후 4시</p>
-      <p>📍 경기도 수원시 더아리엘 6층 스카이가든홀</p>
-    </div>
+  <!-- Details -->
+  <div class="section">
+    <h2>Details</h2>
+    <p>📅 2025년 09월 13일 토요일 오후 4시</p>
+    <p>📍 경기도 수원시 더아리엘 6층 스카이가든홀</p>
+  </div>
 
-    <!-- Calendar -->
-    <div class="wedding-calendar">
-      <h2>WEDDING DAY</h2>
-      <div class="date-main">2025년 9월 13일 토요일｜오후 4시</div>
-      <div class="date-sub">Saturday, September 13, 2025  ｜  PM 4:00</div>
-      <hr>
-      <div class="grid">
-        <div class="wd sun">일</div><div class="wd">월</div><div class="wd">화</div><div class="wd">수</div><div class="wd">목</div><div class="wd">금</div><div class="wd sat">토</div>
-        <div class="day empty"></div><div class="day">1</div><div class="day">2</div><div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day sat">6</div>
-        <div class="day sun">7</div><div class="day">8</div><div class="day">9</div><div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day sat today">13</div>
-        <div class="day sun">14</div><div class="day">15</div><div class="day">16</div><div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day sat">20</div>
-        <div class="day sun">21</div><div class="day">22</div><div class="day">23</div><div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day sat">27</div>
-        <div class="day sun">28</div><div class="day">29</div><div class="day">30</div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
-      </div>
-      <div class="countdown">
-        <div><span id="d"></span><small>DAYS</small></div>
-        <div><span id="h"></span><small>HOURS</small></div>
-        <div><span id="m"></span><small>MINUTES</small></div>
-        <div><span id="s"></span><small>SECONDS</small></div>
-      </div>
-      <hr>
-      <div class="footer">예림 ♥ 수빈 결혼식이 <b id="left"></b>일 남았습니다.</div>
+  <!-- Calendar -->
+  <div class="section wedding-calendar">
+    <h2>WEDDING DAY</h2>
+    <div class="date-main">2025년 9월 13일 토요일｜오후 4시</div>
+    <div class="date-sub">Saturday, September 13, 2025  ｜  PM 4:00</div>
+    <hr>
+    <div class="grid">
+      <div class="wd sun">일</div><div class="wd">월</div><div class="wd">화</div>
+      <div class="wd">수</div><div class="wd">목</div><div class="wd">금</div><div class="wd sat">토</div>
+      <div class="day empty"></div><div class="day">1</div><div class="day">2</div>
+      <div class="day">3</div><div class="day">4</div><div class="day">5</div><div class="day sat">6</div>
+      <div class="day sun">7</div><div class="day">8</div><div class="day">9</div>
+      <div class="day">10</div><div class="day">11</div><div class="day">12</div><div class="day sat today">13</div>
+      <div class="day sun">14</div><div class="day">15</div><div class="day">16</div>
+      <div class="day">17</div><div class="day">18</div><div class="day">19</div><div class="day sat">20</div>
+      <div class="day sun">21</div><div class="day">22</div><div class="day">23</div>
+      <div class="day">24</div><div class="day">25</div><div class="day">26</div><div class="day sat">27</div>
+      <div class="day sun">28</div><div class="day">29</div><div class="day">30</div>
+      <div class="day empty"></div><div class="day empty"></div><div class="day empty"></div><div class="day empty"></div>
     </div>
+    <div class="countdown">
+      <div><span id="d"></span><small>DAYS</small></div>
+      <div><span id="h"></span><small>HOURS</small></div>
+      <div><span id="m"></span><small>MINUTES</small></div>
+      <div><span id="s"></span><small>SECONDS</small></div>
+    </div>
+    <hr>
+    <div class="footer">예림 ♥ 수빈 결혼식이 <b id="left"></b>일 남았습니다.</div>
+  </div>
 
-    <!-- Contact -->
-    <div class="section">
-      <h2>연락처</h2>
-      <details>
-        <summary>신랑측</summary>
-        <p>신랑(김수빈): <span class="copyable" data-copy="01076766059">010-7676-6059</span></p>
-        <p>아버지(김용안): <span class="copyable" data-copy="01063684568">010-6368-4568</span></p>
-        <p>어머니(이해성): <span class="copyable" data-copy="01071347152">010-7134-7152</span></p>
-      </details>
-      <details>
-        <summary>신부측</summary>
-        <p>신부(이예림): <span class="copyable" data-copy="01085676059">010-8567-6059</span></p>
-        <p>아버지(이롱순): <span class="copyable" data-copy="01053663989">010-5366-3989</span></p>
-        <p>어머니(박승희): <span class="copyable" data-copy="01041288007">010-4128-8007</span></p>
-      </details>
-    </div>
+  <!-- Contact -->
+  <div class="section">
+    <h2>연락처</h2>
+    <details>
+      <summary>신랑측</summary>
+      <p>신랑(김수빈): <span class="copyable" data-copy="01076766059">010-7676-6059</span></p>
+      <p>아버지(김용안): <span class="copyable" data-copy="01063684568">010-6368-4568</span></p>
+      <p>어머니(이해성): <span class="copyable" data-copy="01071347152">010-7134-7152</span></p>
+    </details>
+    <details>
+      <summary>신부측</summary>
+      <p>신부(이예림): <span class="copyable" data-copy="01085676059">010-8567-6059</span></p>
+      <p>아버지(이롱순): <span class="copyable" data-copy="01053663989">010-5366-3989</span></p>
+      <p>어머니(박승희): <span class="copyable" data-copy="01041288007">010-4128-8007</span></p>
+    </details>
+  </div>
 
-    <!-- 마음 전하는 곳 + 계좌 -->
-    <div class="section">
-      <h2>소중한 마음 전하는 곳</h2>
-      <p>멀리서도 함께해 주시는 마음만으로도 큰 축복이지만,<br>
-         직접 축하를 전하지 못하시는 분들을 위해<br>
-         마음을 전하실 공간을 마련하였습니다.</p>
-      <details>
-        <summary>신랑측</summary>
-        <p>신랑(김수빈): <span class="copyable" data-copy="3333169084441">카카오뱅크 3333-16-9084441</span></p>
-        <p>아버지(김용안): <span class="copyable" data-copy="3025684900091">농협 302-5684-9000-91</span></p>
-        <p>어머니(이해성): <span class="copyable" data-copy="3022178894763">농협 302-2178-8947-63</span></p>
-      </details>
-      <details>
-        <summary>신부측</summary>
-        <p>신부(이예림): <span class="copyable" data-copy="3333062346999">카카오뱅크 3333-06-2346999</span></p>
-        <p>아버지(이롱순): <span class="copyable" data-copy="6666666666666">무통장 6666-66-6666666</span></p>
-        <p>어머니(박승희): <span class="copyable" data-copy="1002859013242">우리 1002-8590-13242</span></p>
-      </details>
-    </div>
+  <!-- 마음 전하는 곳 -->
+  <div class="section">
+    <h2>소중한 마음 전하는 곳</h2>
+    <p>멀리서도 함께해 주시는 마음만으로도 큰 축복이지만,<br>
+       직접 축하를 전하지 못하시는 분들을 위해<br>
+       마음을 전하실 공간을 마련하였습니다.</p>
+    <details>  
+      <summary>신랑측</summary>
+      <p>신랑(김수빈): <span class="copyable" data-copy="3333169084441">카카오뱅크 3333-16-9084441</span></p>
+      <p>아버지(김용안): <span class="copyable" data-copy="3025684900091">농협 302-5684-9000-91</span></p>
+      <p>어머니(이해성): <span class="copyable" data-copy="3022178894763">농협 302-2178-8947-63</span></p>
+    </details>
+    <details>
+      <summary>신부측</summary>
+      <p>신부(이예림): <span class="copyable" data-copy="3333062346999">카카오뱅크 3333-06-2346999</span></p>
+      <p>아버지(이롱순): <span class="copyable" data-copy="6666666666666">무통장 6666-66-6666666</span></p>
+      <p>어머니(박승희): <span class="copyable" data-copy="1002859013242">우리 1002-8590-13242</span></p>
+    </details>
+  </div>
 
-    <!-- Map -->
-    <div class="map-embed">
-      <iframe src="https://www.google.com/maps?q=%EA%B2%BD%EA%B8%B0%EB%8F%84%20%EC%88%98%EC%9B%90%EC%8B%9C%20%EB%8D%94%EC%95%84%EB%A6%AC%EC%97%98&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
-    </div>
+  <!-- Map -->
+  <div class="section map-embed">
+    <iframe src="https://www.google.com/maps?q=%EA%B2%경기도%20수원시%20더아리엘&z=15&output=embed" allowfullscreen loading="lazy"></iframe>
+  </div>
 
-    <!-- Guestbook -->
-    <div class="section guestbook">
-      <h2>방명록</h2>
-      <form id="guestbook-form">
-        <input type="text" id="name" placeholder="이름" required>
-        <textarea id="message" rows="4" placeholder="축하 메시지를 남겨주세요." required></textarea>
-        <button type="submit">남기기</button>
-      </form>
-      <div id="guestbook-entries"></div>
-    </div>
+  <!-- Guestbook -->
+  <div class="section guestbook">
+    <h2>방명록</h2>
+    <form id="guestbook-form" class="guestbook-form">
+      <input type="text" id="name" placeholder="이름" required>
+      <textarea id="message" rows="4" placeholder="축하 메시지를 남겨주세요." required></textarea>  
+      <button type="submit">남기기</button>
+    </form>
+    <div id="guestbook-entries"></div>
   </div>
 
   <div class="footer">
@@ -291,81 +328,60 @@
     // Countdown
     const target = new Date(2025, 8, 13, 16, 0, 0);
     function update() {
-      const now = new Date();
-      const diff = Math.max(0, target - now);
-      const d = Math.floor(diff / 1e3 / 60 / 60 / 24);
-      const h = Math.floor(diff / 1e3 / 60 / 60) % 24;
-      const m = Math.floor(diff / 1e3 / 60) % 60;
-      const s = Math.floor(diff / 1e3) % 60;
-      document.getElementById('d').textContent = d;
-      document.getElementById('h').textContent = h;
-      document.getElementById('m').textContent = m;
-      document.getElementById('s').textContent = s;
-      document.getElementById('left').textContent = d;
+      const now = new Date(), diff = Math.max(0, target - now);
+      document.getElementById('d').textContent = Math.floor(diff/86400000);
+      document.getElementById('h').textContent = Math.floor(diff/3600000)%24;
+      document.getElementById('m').textContent = Math.floor(diff/60000)%60;
+      document.getElementById('s').textContent = Math.floor(diff/1000)%60;
+      document.getElementById('left').textContent = Math.floor(diff/86400000);
     }
-    setInterval(update, 1000);
+    setInterval(update,1000);
     update();
 
     // Guestbook
     const form = document.getElementById('guestbook-form'),
           entriesDiv = document.getElementById('guestbook-entries');
-    let entries = JSON.parse(localStorage.getItem('entries') || '[]');
-    function saveEntries() {
-      localStorage.setItem('entries', JSON.stringify(entries));
-    }
-    function renderEntries() {
+    let entries = JSON.parse(localStorage.getItem('entries')||'[]');
+    function saveEntries(){ localStorage.setItem('entries',JSON.stringify(entries)); }
+    function renderEntries(){
       entriesDiv.innerHTML = '';
-      entries.forEach((e, i) => {
-        const d = document.createElement('div');
-        d.innerHTML = `
-          <strong>${e.name}</strong> <em>(${new Date(e.time).toLocaleString()})</em>
+      entries.forEach((e,i)=>{
+        const el = document.createElement('div');
+        el.className='entry';
+        el.innerHTML=`
+          <strong>${e.name}</strong>
+          <em>${new Date(e.time).toLocaleString()}</em>
           <p>${e.message}</p>
-          <button onclick="editEntry(${i})">수정</button>
-          <button onclick="deleteEntry(${i})">삭제</button>
-        `;
-        entriesDiv.appendChild(d);
+          <div class="actions">
+            <button onclick="editEntry(${i})">수정</button>
+            <button onclick="deleteEntry(${i})">삭제</button>
+          </div>`;
+        entriesDiv.appendChild(el);
       });
     }
-    function deleteEntry(i) {
-      if (confirm('삭제하시겠습니까?')) {
-        entries.splice(i, 1);
-        saveEntries();
-        renderEntries();
-      }
+    function deleteEntry(i){ if(confirm('삭제하시겠습니까?')){ entries.splice(i,1); saveEntries(); renderEntries(); }}
+    function editEntry(i){
+      const nn=prompt('이름:',entries[i].name),
+            nm=prompt('메시지:',entries[i].message);
+      if(nn!=null&&nm!=null){ entries[i].name=nn; entries[i].message=nm; saveEntries(); renderEntries(); }
     }
-    function editEntry(i) {
-      const nn = prompt('이름:', entries[i].name);
-      const nm = prompt('메시지:', entries[i].message);
-      if (nn != null && nm != null) {
-        entries[i].name = nn;
-        entries[i].message = nm;
-        saveEntries();
-        renderEntries();
-      }
-    }
-    form.addEventListener('submit', e => {
+    form.addEventListener('submit',e=>{
       e.preventDefault();
-      entries.push({ name: form.name.value, message: form.message.value, time: Date.now() });
-      saveEntries();
-      renderEntries();
-      form.reset();
+      entries.push({ name:form.name.value, message:form.message.value, time:Date.now() });
+      saveEntries(); renderEntries(); form.reset();
     });
     renderEntries();
 
     // Copy to clipboard
-    function setupCopy() {
-      document.querySelectorAll('.copyable').forEach(el => {
-        el.addEventListener('click', () => {
-          const txt = el.getAttribute('data-copy');
-          navigator.clipboard.writeText(txt).then(() => {
-            const ori = el.textContent;
-            el.textContent = '복사됨';
-            setTimeout(() => el.textContent = ori, 2000);
-          });
+    document.querySelectorAll('.copyable').forEach(el=>{
+      el.addEventListener('click',()=>{
+        navigator.clipboard.writeText(el.getAttribute('data-copy')).then(()=>{
+          const ori=el.textContent;
+          el.textContent='복사됨';
+          setTimeout(()=>el.textContent=ori,2000);
         });
       });
-    }
-    document.addEventListener('DOMContentLoaded', setupCopy);
+    });
   </script>
 </body>
 </html>
