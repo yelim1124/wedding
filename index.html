@@ -11,42 +11,26 @@
     a { text-decoration: none; color: inherit; }
     img { display: block; width: 100%; height: auto; }
     button.map-btn {
-      margin: 8px 6px; padding: 10px 16px;
-      background: #4CAF50; color: #fff;
-      border: none; border-radius: 4px;
-      cursor: pointer; font-size: 1em;
+      margin: 8px;
+      padding: 10px 16px;
+      background: #4CAF50;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1em;
     }
     button.map-btn.kakao { background: #FFEB00; color: #000; }
-    button.map-btn.naver { background: #1EC800; color: #fff; }
+    button.map-btn.naver { background: #03C75A; color: #fff; }
 
     .hero {
-      position: relative;
-      background-image: url('hero.png');
-      background-size: cover;
-      background-position: center;
-      padding: 120px 20px;
+      background: url('hero.jpg') no-repeat center center/cover;
       text-align: center;
-      color: #fff;
+      padding: 100px 20px;
+      color: white;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 1;
-    }
-    .hero-content {
-      position: relative;
-      z-index: 2;
-    }
-    .hero-content h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    .hero-content p {
-      font-size: 1.2em;
-      line-height: 1.6;
-    }
+    .hero h1 { font-size: 2.5em; margin-bottom: 16px; }
+    .hero p { font-size: 1.2em; line-height: 1.6; }
 
     .gallery-container { position: relative; overflow: visible; }
     .gallery { display: flex; overflow-x: auto; overflow-y: hidden; scroll-behavior: smooth; -webkit-overflow-scrolling: touch; touch-action: auto; scroll-snap-type: x proximity; }
@@ -56,37 +40,83 @@
     .nav-btn.right { right: 10px; }
 
     .section { padding: 40px 20px; text-align: center; }
-    .section h2 { font-size: 2em; margin-bottom: 16px; }
+    .section h2 { font-size: 2em; margin-bottom: 24px; }
     .section p { font-size: 1em; line-height: 2; margin-bottom: 1em; color: #555; }
 
     .copyable { cursor: pointer; color: #007ACC; }
     .copyable:hover { text-decoration: underline; }
 
-    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); max-width: 300px; margin: 20px auto; font-size: 0.9em; }
-    .calendar-grid div { padding: 6px; border-radius: 4px; }
-    .calendar-grid .highlight { background: #4CAF50; color: #fff; font-weight: bold; }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      max-width: 300px;
+      margin: 20px auto;
+      font-size: 0.9em;
+    }
+    .calendar-grid div {
+      padding: 6px;
+      border-radius: 4px;
+    }
+    .calendar-grid .highlight {
+      background: #4CAF50;
+      color: #fff;
+      font-weight: bold;
+    }
 
-    .wedding-date-top { font-size: 1em; color: #4CAF50; font-weight: 500; margin-bottom: 12px; }
+    .countdown {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+    .countdown div {
+      text-align: center;
+    }
+    .countdown span {
+      font-size: 2em;
+      font-weight: bold;
+    }
 
-    .countdown { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
-    .countdown div { text-align: center; }
-    .countdown span { font-size: 2em; font-weight: bold; }
+    .map-embed img {
+      width: 100%;
+      max-width: 500px;
+      height: auto;
+      margin: 20px auto;
+    }
 
-    .countdown-label { margin-top: 10px; font-size: 1.1em; font-weight: bold; color: #333; }
+    .footer {
+      text-align: center;
+      font-size: 0.9em;
+      color: #888;
+      padding: 40px 20px;
+    }
 
-    .footer { text-align: center; font-size: 0.9em; color: #888; padding: 40px 20px; }
-
-    details { margin-bottom: 1em; text-align: left; max-width: 500px; margin-left: auto; margin-right: auto; }
-    summary { font-weight: bold; font-size: 1.1em; cursor: pointer; padding: 10px; background: #f0f0f0; border-radius: 5px; }
-    details p { padding: 6px 10px; margin: 0; }
+    details {
+      margin-bottom: 1em;
+      text-align: left;
+      max-width: 500px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    summary {
+      font-weight: bold;
+      font-size: 1.1em;
+      cursor: pointer;
+      padding: 10px;
+      background: #f0f0f0;
+      border-radius: 5px;
+    }
+    details p {
+      padding: 6px 10px;
+      margin: 0;
+    }
   </style>
 </head>
 <body>
+
   <div class="hero">
-    <div class="hero-content">
-      <h1>수빈 💛 예림</h1>
-      <p>2025년 09월 13일 토요일 오후 4시<br>수원 더아리엘 6층 스카이가든홀</p>
-    </div>
+    <h1>수빈 💛 예림</h1>
+    <p>2025년 09월 13일 토요일 오후 4시<br>수원 더아리엘 6층 스카이가든홀</p>
   </div>
 
   <div class="gallery-container">
@@ -112,13 +142,12 @@
   <div class="section">
     <h2>일정 & 장소</h2>
     <p>📅 2025년 09월 13일 토요일 오후 4시</p>
-    <p>📍 경기도 수원시 팔달구 권광로 181 더아리엘 6층 스카이가든홀</p>
+    <p>📍 경기도 수원시 더아리엘 6층 스카이가든홀</p>
     <img src="couple.jpg" alt="커플 사진" style="max-width:300px;margin:20px auto;">
   </div>
 
   <div class="section">
     <h2>Wedding Calendar</h2>
-    <p class="wedding-date-top">2025년 09월 13일 (토) 오후 4시</p>
     <div class="calendar-grid">
       <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
       <div></div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
@@ -127,13 +156,14 @@
       <div>21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div>
       <div>28</div><div>29</div><div>30</div>
     </div>
+    <p style="margin-top: 10px;">2025년 09월 13일 (토) 오후 4시</p>
     <div class="countdown">
       <div><span id="d"></span><br>DAYS</div>
       <div><span id="h"></span><br>HOURS</div>
       <div><span id="m"></span><br>MINUTES</div>
       <div><span id="s"></span><br>SECONDS</div>
     </div>
-    <p class="countdown-label">예림💛수빈</p>
+    <p style="margin-top: 10px;">예림💛수빈</p>
   </div>
 
   <div class="section">
@@ -171,9 +201,9 @@
 
   <div class="section">
     <h2>오시는 길</h2>
-    <img src="navermap.png" alt="더아리엘 위치 지도" style="max-width:400px; margin: 20px auto;">
-    <div>
-      <button class="map-btn naver" onclick="window.open('https://map.naver.com/p/search/%EB%8D%94%EC%95%84%EB%A6%AC%EC%97%98?c=15.00,0,0,0,dh','_blank')">네이버지도에서 보기</button>
+    <div class="map-embed">
+      <img src="navermap.png" alt="더아리엘 위치 지도">
+      <button class="map-btn naver" onclick="window.open('https://map.naver.com/p/search/더아리엘','_blank')">네이버지도에서 보기</button>
       <button class="map-btn kakao" onclick="window.open('https://map.kakao.com/link/search/더아리엘','_blank')">카카오맵에서 보기</button>
     </div>
   </div>
@@ -187,7 +217,7 @@
       document.getElementById('gallery').scrollBy({ left: dir * document.getElementById('gallery').clientWidth, behavior: 'smooth' });
     }
 
-    const target = new Date(2025, 8, 13, 16, 0, 0);
+    const target = new Date(2025,8,13,16,0,0); // 2025-09-13 16:00
     function updateTimer() {
       const now = new Date(), diff = target - now;
       document.getElementById('d').textContent = Math.max(0, Math.floor(diff / 86400000));
