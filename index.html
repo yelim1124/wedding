@@ -15,7 +15,13 @@
     button.map-btn.kakao { background: #ffe812; color: #333; }
 
     /* Hero */
-    .hero { background: url('hero.PNG') no-repeat center center/cover; height: 60vh; }
+    .hero {
+      background-image: url('hero.PNG');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+      height: 60vh;
+    }
 
     /* Gallery */
     .gallery-container { position: relative; overflow: visible; }
@@ -29,6 +35,9 @@
     .section { padding: 40px 20px; max-width: 700px; margin: auto; text-align: center; }
     .section h2 { font-size: 2em; margin-bottom: 16px; }
     .section p { font-size: 1em; line-height: 1.6; margin-bottom: 1em; color: #555; }
+
+    /* Invitation spacing */
+    .invitation p { margin-bottom: 1em; }
 
     /* Calendar */
     .calendar-date { font-size: 1.1em; color: #444; margin: 20px 0; }
@@ -47,7 +56,7 @@
 
     /* Map */
     .map-image { width: 100%; max-width: 500px; margin: 20px auto; display: block; }
-    
+
     /* Footer */
     .footer { text-align: center; font-size: 0.9em; color: #888; padding: 40px 20px; }
   </style>
@@ -71,16 +80,14 @@
   </div>
 
   <!-- Invitation -->
-  <div class="section">
+  <div class="section invitation">
     <h2>Invitation</h2>
     <p>선선한 바람에 마음이 물드는 9월,</p>
     <p>두 사람이 함께 걸어온 시간의 결실을 맺고 이제 믿음 안에서 하나 되어 가정을 이루려 합니다.</p>
     <p>서로를 향한 사랑과 신뢰를 바탕으로 하나님 안에서 시작하는 이 걸음이 더 깊고 단단해질 수 있도록 함께 축복해주시고 따뜻한 응원으로 격려해주시면 감사하겠습니다.</p>
-    <p> </p>
-    <p> </p>
-   
-  <p style="color: olive;">김용안 · 이해성의 장남 김수빈</p>
+    <p style="color: olive;">김용안 · 이해성의 장남 김수빈</p>
     <p style="color: olive;">이롱순 · 박승희의 장녀 이예림</p>
+    <p>*공간이 협소하여 화환은 정중히 사양합니다</p>
   </div>
 
   <!-- Schedule -->
@@ -94,7 +101,7 @@
   <!-- Calendar -->
   <div class="section">
     <h2>Wedding Calendar</h2>
-    <div class="calendar-date">2025년 09월 13일 (토) 오후 4시</div>
+    <div class="calendar-date">2025.09.13(SAT) 16:00</div>
     <div class="calendar-grid">
       <div>일</div><div>월</div><div>화</div><div>수</div><div>목</div><div>금</div><div>토</div>
       <div></div><div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div>
